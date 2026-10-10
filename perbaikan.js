@@ -50,7 +50,6 @@ TARIF_PAJAK = 0.12;
 // FIX 13: Memperbaiki kapitalisasi fungsi 'Console.log' menjadi 'console.log' karena method bawaan JavaScript berhuruf kecil.
 console.log(namaKedai, jumlahItem, subtotal, pajak, totalBayar, uangCukup, kembalian, itemGenap, transaksiSelesai);
 
-
 /* 
    CATATAN BUG (12 KESALAHAN)
 
