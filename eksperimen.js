@@ -44,3 +44,24 @@ console.log(typeof [] === typeof {});
 
 // 15. Tebakan: 50 | Hasil Asli: 50
 console.log([10, 20, 30][1] + [10, 20, 30][2]);
+
+
+console.log("\n=== 5.2 EKSPERIMEN var DAN let ===");
+
+// Bukti 1: Variabel var bocor keluar blok, sedangkan let memiliki block scope
+{
+  var varGlobalBok = "Halo dari var di dalam blok";
+  let letLokalBok = "Halo dari let di dalam blok";
+}
+console.log(varGlobalBok); // Berhasil tercetak: "Halo dari var di dalam blok"
+// console.log(letLokalBok); // Jika diaktifkan, memicu ReferenceError: letLokalBok is not defined
+
+
+// Bukti 2: Deklarasi ulang variabel dengan nama yang sama
+var namaBarang = "Kopi";
+var namaBarang = "Teh"; // Berhasil ditimpa tanpa error
+console.log("Hasil deklarasi ulang var:", namaBarang);
+
+let hargaMenu = 15000;
+// let hargaMenu = 20000; // Jika diaktifkan, memicu SyntaxError: Identifier 'hargaMenu' has already been declared
+console.log("Harga menu let:", hargaMenu);
