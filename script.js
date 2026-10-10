@@ -121,3 +121,13 @@ console.log("typeof transaksi[0].catatan :",typeof transaksi[0].catatan);
 
 let catatanKasir;
 console.log("\nNilai variabel catatanKasir:", catatanKasir);
+
+/*Jawaban latihan bagian 2
+1)`nomorWhatsApp` disimpan sebagai string, bukan number adalah nomor WhatsApp (contoh `"08123456789"`) lebih tepat disimpan sebagai **string** karena jika disimpan sebagai number (contoh:081234567890), Javascript akan menganggap nol diawal tidak bernilai dan otomatis merubahnya 81234567890.
+2)`website` diisi `null`, sedangkan `catatanKasir` dibiarkan tanpa nilai karena `website` diberi `null`, bukan dibiarkan tanpa nilai seperti di kode awal karena website diberi null untuk menunjukkan kesengajaan bahwa properti tersebut memang ada tetapi belum/tidak memiliki nilai saat ini.
+    Perbedaan 'null' dan 'undefined' adalah 'null' nilainya sengaja dikosongkan oleh si programmer sedangkan 'undefined' variabel atau properti yang belum dideklarasikan atau belum pernah diberi nilai oleh Javascript.
+3)Jika `menu` berisi 6 item, hasil `menu[6]` adalah `menu[6]` tidak berisi produk ke-6, dan apa yang tercetak jika kamu mengaksesnya Array di JavaScript menggunakan zero-based indexing (penomoran indeks dimulai dari angka 0). Produk ke-1 berada di indeks 0, produk ke-2 di indeks 1, produk ke-3 di indeks 2, dan produk ke-4 berada di indeks 3 sampai seterusnya.
+    Jika kita mengakses menu[6], JavaScript akan mencari elemen di posisi ke-7. Karena elemen tersebut tidak ada di dalam array, maka yang tercetak di console adalah undefined.
+4)Hasil `typeof menu` adalah typeof menghasilkan 'array' karena array tersebut memiliki tipe non-primitif.
+5)`menu` dibuat sebagai array, sedangkan `kedai` dibuat sebagai object karena 'menu' berisi nilai yang berurutan sedangkan 'kedai' memiliki data yang terstruktur.
+
