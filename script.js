@@ -78,7 +78,7 @@ const transaksi = [
         kode        :"TRX-002",
         pelanggan   :"Yusuf",
         sudahMember :false,
-        uangDibayar :120000,
+        uangDibayar :150000,
         catatan     :"",
         pesanan     : [
             { indeksMenu:1, jumlah:1 },
@@ -91,7 +91,7 @@ const transaksi = [
         kode        :"TRX-003",
         pelanggan   :"Nayla",
         sudahMember :true,
-        uangDibayar :50000,
+        uangDibayar :60000,
         catatan     :"",
         pesanan     : [
             { indeksMenu:1, jumlah:1 },
@@ -130,4 +130,96 @@ console.log("\nNilai variabel catatanKasir:", catatanKasir);
     Jika kita mengakses menu[6], JavaScript akan mencari elemen di posisi ke-7. Karena elemen tersebut tidak ada di dalam array, maka yang tercetak di console adalah undefined.
 4)Hasil `typeof menu` adalah typeof menghasilkan 'array' karena array tersebut memiliki tipe non-primitif.
 5)`menu` dibuat sebagai array, sedangkan `kedai` dibuat sebagai object karena 'menu' berisi nilai yang berurutan sedangkan 'kedai' memiliki data yang terstruktur.
+*/
 
+//BAGIAN 3
+//  TRANSAKSI 1
+const subtotal1 = (menu[transaksi[0].pesanan[0].indeksMenu].harga * transaksi[0].pesanan[0].jumlah) +
+                 (menu[transaksi[0].pesanan[1].indeksMenu].harga * transaksi[0].pesanan[1].jumlah);
+
+const potongan1 = transaksi[0].sudahMember ? subtotal1 * 0.10 : 0;
+const pajak1 = (subtotal1 - potongan1) * 0.11;
+const totalBayar1= (subtotal1 - potongan1) + pajak1;
+const kembalian1= transaksi[0].uangDibayar - totalBayar1;
+
+const uangCukup1 = kembalian1 >= 0;
+const totalItem1 = transaksi[0].pesanan[0].jumlah + transaksi[0].pesanan[1].jumlah;
+const gratisAntar1 = subtotal1 >= 100000 || totalItem1 >= 5;
+const semuaMenuTersedia1 = menu [transaksi[0].pesanan[0].indeksMenu].tersedia && menu[transaksi[0].pesanan[1].indeksMenu].tersedia;
+
+const sisa50k1 = uangCukup1 ? kembalian1 % 50000 : 0;
+const sisa20k1 = uangCukup1 ? sisa50k1 % 20000 : 0;
+
+//Transaksi 2
+const subtotal2 = (menu[transaksi[1].pesanan[0].indeksMenu].harga * transaksi[1].pesanan[0].jumlah) +
+                   (menu[transaksi[1].pesanan[1].indeksMenu].harga * transaksi[1].pesanan[1].jumlah) +
+                   (menu[transaksi[1].pesanan[2].indeksMenu].harga * transaksi[1].pesanan[2].jumlah) +
+                   (menu[transaksi[1].pesanan[3].indeksMenu].harga * transaksi[1].pesanan[3].jumlah);
+
+const potongan2 = transaksi[1].sudahMember ? subtotal1 * 0.10 : 0;
+const pajak2 = (subtotal2 - potongan2) * 0.11;
+const totalBayar2= (subtotal2 - potongan2) + pajak2;
+const kembalian2= transaksi[1].uangDibayar - totalBayar2;
+
+const uangCukup2 = kembalian2 >= 0;
+const totalItem2 = transaksi[1].pesanan[0].jumlah;
+const gratisAntar2 = subtotal2 >= 100000 || totalItem2 >= 5;
+const semuaMenuTersedia2 = menu [transaksi[1].pesanan[0].indeksMenu].tersedia && menu[transaksi[1].pesanan[1].indeksMenu].tersedia;
+
+const sisa50k2 = uangCukup2 ? kembalian2 % 50000 : 0;
+const sisa20k2 = uangCukup2 ? sisa50k2 % 20000 : 0;
+
+//Transaksi 3
+const subtotal3 = (menu[transaksi[2].pesanan[0].indeksMenu].harga * transaksi[2].pesanan[0].jumlah) +
+                    (menu[transaksi[2].pesanan[1].indeksMenu].harga * transaksi[2].pesanan[1].jumlah);
+
+const potongan3 = transaksi[2].sudahMember ? subtotal1 * 0.10 : 0;
+const pajak3 = (subtotal3 - potongan3) * 0.11;
+const totalBayar3= (subtotal3 - potongan3) + pajak3;
+const kembalian3= transaksi[2].uangDibayar - totalBayar3;
+
+const uangCukup3 = kembalian3 >= 0;
+const totalItem3 = transaksi[2].pesanan[0].jumlah;
+const gratisAntar3 = subtotal3 >= 100000 || totalItem3 >= 5;
+const semuaMenuTersedia3 = menu [transaksi[2].pesanan[0].indeksMenu].tersedia && menu[transaksi[2].pesanan[1].indeksMenu].tersedia;
+
+const sisa50k3 = uangCukup2 ? kembalian3 % 50000 : 0;
+const sisa20k3 = uangCukup2 ? sisa50k3 % 20000 : 0;
+
+console.log(`========================================`);
+console.log(`      LAPORAN HARIAN KEDAI SENJA        `);
+console.log(`      Nama Kedai: ${kedai.nama} (${kedai.kota})`);
+console.log(`========================================\n`);
+
+console.log(`--- Detail Transaksi 1 (${transaksi[0].namaPelanggan}) ---`);
+console.log(`Subtotal       : Rp ${subtotal1}`);
+console.log(`Potongan Member: Rp ${potongan1}`);
+console.log(`Pajak (11%)    : Rp ${pajak1.toFixed(2)}`);
+console.log(`Total Bayar    : Rp ${totalBayar1.toFixed(2)}`);
+console.log(`Kembalian      : Rp ${kembalian1.toFixed(2)}`);
+console.log(`Uang Cukup     : ${uangCukup1}`);
+console.log(`Gratis Antar   : ${gratisAntar1}`);
+console.log(`Menu Tersedia  : ${semuaMenuTersedia1}`);
+console.log(`Sisa Pecahan   : Sisa bagi 50k = Rp ${sisa50k1}, Sisa bagi 20k = Rp ${sisa20k1}\n`);
+
+console.log(`--- Detail Transaksi 2 (${transaksi[1].namaPelanggan}) ---`);
+console.log(`Subtotal       : Rp ${subtotal2}`);
+console.log(`Potongan Member: Rp ${potongan2}`);
+console.log(`Pajak (11%)    : Rp ${pajak2.toFixed(2)}`);
+console.log(`Total Bayar    : Rp ${totalBayar2.toFixed(2)}`);
+console.log(`Kembalian      : Rp ${kembalian2.toFixed(2)}`);
+console.log(`Uang Cukup     : ${uangCukup2}`);
+console.log(`Gratis Antar   : ${gratisAntar2}`);
+console.log(`Menu Tersedia  : ${semuaMenuTersedia2}`);
+console.log(`Sisa Pecahan   : Sisa bagi 50k = Rp ${sisa50k2}, Sisa bagi 20k = Rp ${sisa20k2}\n`);
+
+console.log(`--- Detail Transaksi 3 (${transaksi[2].namaPelanggan}) ---`);
+console.log(`Subtotal       : Rp ${subtotal3}`);
+console.log(`Potongan Member: Rp ${potongan3}`);
+console.log(`Pajak (11%)    : Rp ${pajak3.toFixed(2)}`);
+console.log(`Total Bayar    : Rp ${totalBayar3.toFixed(2)}`);
+console.log(`Kembalian      : Rp ${kembalian3.toFixed(2)}`);
+console.log(`Uang Cukup     : ${uangCukup3}`);
+console.log(`Gratis Antar   : ${gratisAntar3}`);
+console.log(`Menu Tersedia  : ${semuaMenuTersedia3}`);
+console.log(`Sisa Pecahan   : Sisa bagi 50k = Rp ${sisa50k3}, Sisa bagi 20k = Rp ${sisa20k3}\n`);
