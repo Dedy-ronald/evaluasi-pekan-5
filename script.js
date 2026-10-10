@@ -186,6 +186,29 @@ const semuaMenuTersedia3 = menu [transaksi[2].pesanan[0].indeksMenu].tersedia &&
 const sisa50k3 = uangCukup2 ? kembalian3 % 50000 : 0;
 const sisa20k3 = uangCukup2 ? sisa50k3 % 20000 : 0;
 
+// ==========================================
+// LAPORAN HARIAN
+// ==========================================
+let pendapatanHarian = 0;
+let jumlahTransaksi = 0;
+
+pendapatanHarian += totalBayar1;
+jumlahTransaksi++;
+
+pendapatanHarian += totalBayar2;
+jumlahTransaksi++;
+
+pendapatanHarian += totalBayar3;
+jumlahTransaksi++;
+
+const rataRataPendapatan = pendapatanHarian / jumlahTransaksi;
+
+const selisihTerbesar = Math.max(totalBayar1, totalBayar2, totalBayar3) - Math.min(totalBayar1, totalBayar2, totalBayar3);
+const persentaseTransaksiPertama = (totalBayar1 / pendapatanHarian) * 100;
+
+// Simulasi harga menu[0] naik 5% per bulan selama 3 bulan
+const hargaKopiTigaBulan = menu[0].harga * (1.05 ** 3);
+
 console.log(`========================================`);
 console.log(`      LAPORAN HARIAN KEDAI SENJA        `);
 console.log(`      Nama Kedai: ${kedai.nama} (${kedai.kota})`);
@@ -223,3 +246,24 @@ console.log(`Uang Cukup     : ${uangCukup3}`);
 console.log(`Gratis Antar   : ${gratisAntar3}`);
 console.log(`Menu Tersedia  : ${semuaMenuTersedia3}`);
 console.log(`Sisa Pecahan   : Sisa bagi 50k = Rp ${sisa50k3}, Sisa bagi 20k = Rp ${sisa20k3}\n`);
+
+console.log(`========================================`);
+console.log(`            RINGKASAN HARIAN            `);
+console.log(`========================================`);
+console.log(`Total Pendapatan       : Rp ${pendapatanHarian.toFixed(2)}`);
+console.log(`Jumlah Transaksi       : ${jumlahTransaksi}`);
+console.log(`Rata-rata Pendapatan   : Rp ${rataRataPendapatan.toFixed(2)}`);
+console.log(`Selisih Terbesar (Max-Min): Rp ${selisihTerbesar.toFixed(2)}`);
+console.log(`Porsi Transaksi ke-1   : ${persentaseTransaksiPertama.toFixed(2)}%`);
+console.log(`Simulasi Kopi 3 Bulan  : Rp ${hargaKopiTigaBulan.toFixed(2)}`);
+
+// ==========================================
+// 6. PEMBUKTIAN APAKAH NILAI BERUBAH OTOMATIS
+// ==========================================
+console.log(`\n--- UJI COBA PERUBAHAN DATA ---`);
+console.log(`Harga menu[0] sebelum diubah:`, menu[0].harga);
+// Mengubah harga menu setelah variabel subtotal dihitung di atas:
+menu[0].harga = 20000;
+console.log(`Harga menu[0] setelah diubah:`, menu[0].harga);
+console.log(`Nilai subtotal1 yang sudah terlanjur dihitung:`, subtotal1); 
+// Hasilnya: subtotal1 TIDAK berubah otomatis karena JavaScript mengevaluasi nilai (variabel primitif) pada saat baris kode tersebut dijalankan, bukan terikat secara reaktif.
