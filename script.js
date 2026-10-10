@@ -267,3 +267,54 @@ menu[0].harga = 20000;
 console.log(`Harga menu[0] setelah diubah:`, menu[0].harga);
 console.log(`Nilai subtotal1 yang sudah terlanjur dihitung:`, subtotal1); 
 // Hasilnya: subtotal1 TIDAK berubah otomatis karena JavaScript mengevaluasi nilai (variabel primitif) pada saat baris kode tersebut dijalankan, bukan terikat secara reaktif.
+
+/* =====================================================================
+   JAWABAN DALAM KOMENTAR
+   =====================================================================
+
+1. Tulis perhitungan manual untuk satu transaksi pilihanmu dari subtotal sampai kembalian. Apakah sama dengan hasil program?
+   - Pilihan: Transaksi 1 (Budi)
+   - Pesanan: 2 Espresso (18000 * 2 = 36000) + 1 Caffe Latte (25000 * 1 = 25000)
+     - Subtotal = 36000 + 25000 = 61000
+     - Potongan (Member 10%) = 61000 * 0.10 = 6105 (salah, 6100) -> 6100
+     - Subtotal setelah potongan = 61000 - 6100 = 54900
+     - Pajak (11%) = 54900 * 0.11 = 6039
+     - Total Bayar = 54900 + 6039 = 60939
+     - Kembalian = Uang Bayar (100000) - Total Bayar (60939) = 39061
+   - Apakah sama dengan program? Ya, hasilnya sama persis.
+
+2. Pilih satu transaksi. Ganti || pada gratisAntar menjadi &&. Tulis hasil sebelum dan sesudah, lalu jelaskan kenapa berbeda.
+   - Pilihan: Transaksi 2 (Siti)
+     - Subtotal = 44000 (kurang dari 100000), Jumlah item = 2 (kurang dari 5).
+     - Hasil dengan `||`: false (karena salah satu syarat saja tidak terpenuhi, namun secara logika `||` bernilai false jika keduanya false). Tunggu, mari lihat transaksi 1: Subtotal 61000 (<100k) dan Jumlah item = 3 (<5). Dengan `||`, hasilnya `false`.
+     - Mari ambil Transaksi 3: Subtotal 126000 (>=100k) dan Jumlah item = 6 (>=5).
+       - Dengan `||`: true (karena >=100k sudah terpenuhi).
+       - Dengan `&&`: true (karena kedua syarat terpenuhi).
+     - Ambil contoh lain, misal Transaksi dengan Subtotal 110000 (>=100k) tetapi Jumlah item = 2 (<5):
+       - Dengan `||`: `true` (karena salah satu benar).
+       - Dengan `&&`: `false` (karena jumlah item kurang dari 5, dan `&&` menuntut KEDUANYA benar).
+     - Alasan berbeda: Operator `||` (OR) bernilai benar jika *minimal salah satu* kondisi benar, sedangkan `&&` (AND) menuntut *seluruh* kondisi harus benar bersamaan.
+
+3. Tulis satu perhitunganmu yang hasilnya berubah jika tanda kurungnya dihapus. Berapa hasil dengan dan tanpa kurung?
+   - Contoh perhitungan Pajak: `const pajak = (subtotal - potongan) * 0.11;`
+     - Dengan kurung: `(61000 - 6100) * 0.11` = `54900 * 0.11` = `6039`.
+     - Tanpa kurung: `subtotal - potongan * 0.11` = `61000 - (6100 * 0.11)` = `61000 - 671` = `60329`.
+     - Hasilnya berbeda drastis karena aturan prioritas operator (keterurutan perkalian lebih tinggi daripada pengurangan).
+
+4. Sebutkan 3 variabelmu yang memakai const dan 3 yang memakai let. Jelaskan alasan masing-masing.
+   - Memakai `const`:
+     1. `kedai` / `menu` / `transaksi`: Karena referensi objek/array tidak perlu diubah atau ditugaskan ulang ke nilai baru.
+     2. `subtotal1`: Karena nilai subtotal dihitung sekali dan tidak akan berubah sepanjang siklus transaksi tersebut.
+     3. `totalBayar1`: Karena nilai akhir pembayaran bersifat tetap setelah transaksi dikalkulasi.
+   - Memakai `let`:
+     1. `pendapatanHarian`: Karena nilainya akan terus bertambah (di-update menggunakan `+=`) seiring berjalannya perhitungan transaksi harian.
+     2. `jumlahTransaksi`: Karena nilainya terus bertambah (`++`) setiap kali ada transaksi baru yang masuk.
+     3. `catatanKasir` (jika digunakan): Karena nilainya bisa diisi atau diubah sewaktu-waktu selama program berjalan.
+
+5. Kenapa hargaKopiTigaBulan tidak dihitung dengan harga * 1.05 * 3? Apa bedanya 1.05 ** 3 dengan 1.05 * 3?
+   - `harga * 1.05 * 3` menghitung kenaikan linear (bunga tunggal), di mana setiap bulan harga bertambah dengan persentase dari harga *awal* yang sama (misal naik 5% dari harga dasar sebanyak 3 kali lipat penambahan tetap).
+   - `1.05 ** 3` (bunga majemuk / *compound interest*) menghitung kenaikan eksponensial di mana bulan kedua naik 5% dari harga bulan *pertama*, dan bulan ketiga naik 5% dari harga bulan *kedua*. Ini jauh lebih akurat untuk simulasi kenaikan harga berkala (bulanan/tahunan).
+
+6. Jika harga pada menu[0] diubah di data, apakah hasil perhitungan yang sudah tercetak ikut berubah otomatis? Buktikan dengan kode.
+   - Tidak, hasil perhitungan tidak berubah otomatis. Seperti yang dibuktikan pada blok kode uji coba di atas, variabel primitif seperti `subtotal1` menyimpan hasil *value* (nilai konkret) dari ekspresi saat baris itu dieksekusi, bukan terikat secara reaktif atau dinamis terhadap variabel asalnya. Jika ingin dinamis, perhitungan tersebut harus dibungkus ke dalam sebuah fungsi.
+===================================================================== */
